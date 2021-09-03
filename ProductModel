@@ -4,5 +4,32 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace Infraestructure
-{}
+{
+public class ProductoModel 
+{
+private producto[] productos;
+
+public void Add(Producto p)
+{
+if (p == null)
+{
+throw new ArgumentException("El campo proucto no puede estar vacio.");
+}
+
+if (productos == null)
+{
+productos = new Producto[1];
+productos [productos.Length -1] = p;
+return;
+}
+Producto[]tmp= new Producto[productos.Length +1];
+Array.Copy(productos, tmp, productos.Length);
+tmp[tmp.Length -1] = p;
+productos = tmp;
+
+}
+
+}
+
+}
 
