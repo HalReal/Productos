@@ -6,10 +6,10 @@ using System.Text;
 namespace Infraestructure
 {
 public class ProductoModel 
-{
-private producto[] productos;
+  {
+  private producto[] productos;
 
-public void Add(Producto p)
+  public void Add(Producto p)
 {
 if (p == null)
 {
