@@ -5,9 +5,9 @@ using System.Text;
 
 namespace Infraestructure
 {
-public class ProductoModel 
+public class ProductModel 
   {
-  private producto[] productos;
+  private Producto[] productos;
 
   public void Add(Producto p)
     {
@@ -18,17 +18,49 @@ public class ProductoModel
 
       if (productos == null)
       {
-      productos = new Producto[1];
-      productos [productos.Length -1] = p;
-      return;
+        productos = new Producto[1];
+        productos [productos.Length -1] = p;
+        return;
       }
       
      Producto[]tmp= new Producto[productos.Length +1];
      Array.Copy(productos, tmp, productos.Length);
      tmp[tmp.Length -1] = p;
      productos = tmp;
-
     }
+    
+    public bool UpdateProd(Producto p)
+      {
+        bool success = false;
+        int index = GetIndex(p);
+        
+        if(index < 0)
+          {
+            throw new ArgumentException($"Error, el producto con el siguiente código: {p.Codigo} no está disponible o no existe."); 
+          }
+            
+            productos[index]=p;
+            return !success;
+      }
+      
+      public bool DeleteProduct(Producto p)
+        {
+          bool flag= false;
+          int index= GetIndex(p);
+          
+          if(index < 0)
+            {
+            throw new ArgumentException($"Error, el producto con el siguiente código: {p.Codigo} no existe o no está disponible.");
+            }
+            
+            
+            Producto[] tmp = new Producto[productos.Length - 1];
+            productos[index] = productos[productos.Length - 1]; 
+            Array.Copy(productos, tmp, productos.Length - 1);
+            productos = tmp;
+            
+            return !flag;
+        }
   }
 }
 
